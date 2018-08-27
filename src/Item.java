@@ -18,15 +18,11 @@ public class Item {
         return itemWeight;
     }
 
-    public String getItemName() {
-        return itemName;
-    }
+    public String getItemName() { return itemName; }
 
     public int getItemNumber() { return itemNumber; }
 
-    public boolean isLoaded() {
-        return isLoaded;
-    }
+    public boolean isLoaded() { return isLoaded; }
 
     public void setLoaded(boolean loaded) {
 
