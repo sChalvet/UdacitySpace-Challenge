@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class MissionMars {
     public static final String U1_ROCKET_NAME = "U-1 Rocket";  // The Rocket name allows the correct object type to be built
     public static final String U2_ROCKET_NAME = "U-2 Rocket";
-    public static final boolean LOGGING_ON = false;            // Turn logging on or off
-    public static final int NUM_OF_SIMULATIONS = 100;          // Set the number of times we want to run the simulation.
+    public static final boolean LOGGING_ON = true;            // Turn logging on or off
+    public static final int NUM_OF_SIMULATIONS = 1;          // Set the number of times we want to run the simulation.
 
     public static void main(String [] args){
         
