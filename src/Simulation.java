@@ -33,16 +33,19 @@ public class Simulation {
 
         ArrayList<URocket> URockets = new ArrayList<>(); //contains list of rockets
 
-        Collections.sort(items, new Comparator<Item>() {
+        Collections.sort(items, new Comparator<Item>() {  //Sort Item List starting with most heavy. Helps in weight distribution.
             @Override
             public int compare(Item o1, Item o2) {
                 return o2.getItemWeight() - o1.getItemWeight();
             }
         });
 
-        /*for (Item item : items) {
-            System.out.println("item #" + item.getItemNumber()+ " weight: " + item.getItemWeight());
-        }*/
+        if(MissionMars.LOGGING_ON) {
+            System.out.println("\nSorted items by weight: ");
+            for (Item item : items) {
+                System.out.println("item #" + item.getItemNumber() + " weight: " + item.getItemWeight() + "\tItem type: " + item.getItemName());
+            }
+        }
 
         boolean flag;
         do {
@@ -56,7 +59,7 @@ public class Simulation {
                     }
                 }
             }
-
+            if(MissionMars.LOGGING_ON) System.out.println("Cargo weight: " + rocket.cargoCarried + " of " + rocket.cargoLimit + " limit");
             URockets.add(rocket);           //add the loaded rocket to the ArrayList of loaded rockets
 
            flag = true;
@@ -72,7 +75,7 @@ public class Simulation {
     }
 
     private URocket getRocket(String rocketType){
-        if(rocketType.equals(MissionMars.U1RocketName)){
+        if(rocketType.equals(MissionMars.U1_ROCKET_NAME)){
             return new U1Rocket();
         }else{
             return new U2Rocket();
@@ -92,6 +95,7 @@ public class Simulation {
 
         for (URocket uRocket : URockets) {
             do{
+                if(MissionMars.LOGGING_ON) System.out.println("\nLaunching " + uRocket.rocketType + " #" + uRocket.getRocketNumber());
                 totalCost += uRocket.rocketCost;
             }while(!uRocket.launch() || !uRocket.land());
         }

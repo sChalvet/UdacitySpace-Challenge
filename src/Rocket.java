@@ -4,7 +4,7 @@ public class Rocket implements SpaceShip {
 
     int cargoCarried;
     int cargoLimit;
-    ArrayList<Item> RocketInventory = new ArrayList<>();
+    ArrayList<Item> RocketInventory = new ArrayList<>();    // Keeps track of what is loaded on each rocket
 
     @Override
     public boolean launch() {
@@ -25,8 +25,7 @@ public class Rocket implements SpaceShip {
     @Override
     final public boolean carry(Item item) {
         cargoCarried += item.getItemWeight();
-        //System.out.println("Cargo weight: " + cargoCarried + " of " + cargoLimit);
-        addItemsToLoad(item);
+        addItemsToLoad(item);      // Adds item to rocket inventory
         return true;
     }
 

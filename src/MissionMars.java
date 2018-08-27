@@ -1,40 +1,45 @@
 import java.util.ArrayList;
 
 public class MissionMars {
-    public static final String U1RocketName = "U-1 Rocket";
-    public static final String U2RocketName = "U-2 Rocket";
+    public static final String U1_ROCKET_NAME = "U-1 Rocket";  // The Rocket name allows the correct object type to be built
+    public static final String U2_ROCKET_NAME = "U-2 Rocket";
+    public static final boolean LOGGING_ON = false;            // Turn logging on or off
+    public static final int NUM_OF_SIMULATIONS = 100;          // Set the number of times we want to run the simulation.
 
     public static void main(String [] args){
+        
+        Simulation URocketSimulation;
+        ArrayList<Item> loadedItems;
+        ArrayList<URocket> URockets; //contains list of rockets
 
-        Simulation U1RocketSimulation = new Simulation();
-        Simulation U2RocketSimulation = new Simulation();
-
-        ArrayList<Item> loadedItems1 = new ArrayList<>();
-        ArrayList<Item> loadedItems2 = new ArrayList<>();
-
-        ArrayList<URocket> URockets1 = new ArrayList<>(); //contains list of rockets
-        ArrayList<URocket> URockets2 = new ArrayList<>(); //contains list of rockets
         int totalCostU1, totalCostU2;
         totalCostU1 = totalCostU2 = 0;
 
-        for (int i = 0; i < 10000; i++) {
-            loadedItems1 = U1RocketSimulation.loadItems();
-            loadedItems2 = U2RocketSimulation.loadItems();
 
-            URockets1 = U1RocketSimulation.loadURockets(loadedItems1, U1RocketName);
-            totalCostU1 += U1RocketSimulation.runSimulation(URockets1);
 
-            //printThis(URockets1);
+        for (int i = 0; i < NUM_OF_SIMULATIONS; i++) {   //increase number in loop to run more simulations
+            if(MissionMars.LOGGING_ON) System.out.println("\n-+-+-+-+-+-+-+-+-+-+-+-+ SIMULATION #" + (i+1) +" -+-+-+-+-+-+-+-+-+-+-+-+\n");
 
-            URockets2 = U2RocketSimulation.loadURockets(loadedItems2, U2RocketName);
-            totalCostU2 += U2RocketSimulation.runSimulation(URockets2);
+            URocketSimulation = new Simulation();
 
-            //printThis(URockets2);
+            loadedItems = URocketSimulation.loadItems();
+            URockets = URocketSimulation.loadURockets(loadedItems, U1_ROCKET_NAME);
+            totalCostU1 += URocketSimulation.runSimulation(URockets);
+
+            if(MissionMars.LOGGING_ON) printThis(URockets);
+
+            loadedItems = URocketSimulation.loadItems();
+            URockets = URocketSimulation.loadURockets(loadedItems, U2_ROCKET_NAME);
+            totalCostU2 += URocketSimulation.runSimulation(URockets);
+
+            if(MissionMars.LOGGING_ON) printThis(URockets);
+
+            if(MissionMars.LOGGING_ON) System.out.println("\n-+-+-+-+-+-+-+-+-+-+-+-+ END OF SIMULATION #" + (i+1) +" -+-+-+-+-+-+-+-+-+-+-+-+\n");
         }
 
 
-        System.out.println("Cost of U1 rockets: " + totalCostU1/10000 + " million dollars");
-        System.out.println("Cost of U2 rockets: " + totalCostU2/10000 + " million dollars");
+        System.out.println("\nAverage Cost of using U1 rockets: " + totalCostU1/NUM_OF_SIMULATIONS + " million dollars");
+        System.out.println("Average Cost of using U2 rockets: " + totalCostU2/NUM_OF_SIMULATIONS + " million dollars");
 
     }
 
@@ -46,7 +51,6 @@ public class MissionMars {
             for (Item item : uRocket.getRocketInventory()) {
                 System.out.println(item.getItemName() + ", " + item.getItemWeight() + " tons");
             }
-            System.out.println("------------------------------------------------------------------\n");
         }
     }
 }

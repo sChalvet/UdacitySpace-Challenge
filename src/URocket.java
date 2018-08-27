@@ -36,31 +36,31 @@ public class URocket extends Rocket {
 
     @Override
     public final boolean land() {
-        //Chance of landing crash = % * (cargo carried / cargo limit)
-        int oddsOfFailure = ( rocketLandCrashChance * cargoCarried/cargoLimit );
-        //System.out.println("Landing odds of failure: " + oddsOfFailure + "%");
+
+        float oddsOfFailure = ( (float) rocketLandCrashChance * cargoCarried/cargoLimit );    //Chance of landing crash = % * (cargo carried / cargo limit)
+        if(MissionMars.LOGGING_ON) System.out.println("Landing odds of failure: " + oddsOfFailure + "%");
         if ( oddsOfFailure < getSuccessChance() ){
             return true; //successful landing
         }
-       //System.out.println("!!!!Landing Fail for " + this.rocketType + " #" + this.getRocketNumber() + " with failure odds at " + oddsOfFailure + "%");
+        if(MissionMars.LOGGING_ON) System.out.println("!!!!Landing Fail for " + this.rocketType + " #" + this.getRocketNumber() + " with failure odds at " + oddsOfFailure + "%");
         return false;
     }
 
     @Override
     public final boolean launch() {
-        //Chance of launch explosion = % * (cargo carried / cargo limit)
-        int oddsOfFailure = ( rocketLaunchExplosionChance * cargoCarried/cargoLimit );
-        //System.out.println("Launching odds of failure: " + oddsOfFailure + "%");
+
+        int oddsOfFailure = ( rocketLaunchExplosionChance * cargoCarried/cargoLimit );  //Chance of launch explosion = % * (cargo carried / cargo limit)
+        if(MissionMars.LOGGING_ON) System.out.println("Launching odds of failure: " + oddsOfFailure + "%");
         if ( oddsOfFailure < getSuccessChance() ){
             return true; //successful launch
         }
-        //System.out.println("!!!!Launch Fail for " + this.rocketType + " #" + this.getRocketNumber() + " with failure odds at " + oddsOfFailure + "%");
+        if(MissionMars.LOGGING_ON) System.out.println("!!!!Launch Fail for " + this.rocketType + " #" + this.getRocketNumber() + " with failure odds at " + oddsOfFailure + "%");
         return false;
     }
 
     private int getSuccessChance(){
         int odds = new Random().nextInt(100)+1;
-        //System.out.println("Random odds (must  be higher than above odds for success): " + odds + "%");
+        if(MissionMars.LOGGING_ON) System.out.println("Random odds (must  be higher than above odds for success): " + odds + "%");
         return odds;
     }
 
